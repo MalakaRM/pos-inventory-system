@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/order-details-page.css">
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>Order Details</title>
+</head>
+<body onload="loadData()">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-print-none">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">POS System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/dashboard.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="customer.html">Customer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="items.html">Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="place-order.html">Place Order</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <h3 class="mb-4 text-center">Order Invoice / Details</h3>
+
+        <!-- Order Basic Details -->
+        <div class="card p-3 shadow-sm mb-4">
+            <h5 class="card-title text-muted mb-3">Order Info</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-details-table-body">
+                        <!-- Dynamic Order Data -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="card p-3 shadow-sm mb-4">
+            <h5 class="card-title text-muted mb-3">Customer Info</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Address</th>
+                            <th>Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-details-table-body">
+                        <!-- Dynamic Customer Data -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Ordered Items Details -->
+        <div class="card p-3 shadow-sm mb-4">
+            <h5 class="card-title text-muted mb-3">Purchased Items</h5>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-table-body">
+                        <!-- Dynamic Items Data -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & jQuery Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Custom Config & Scripts -->
+    <script src="scripts/firebaseConfig.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/order-details-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/place-order.css">
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <!-- Toastr CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
+    <title>Place Order</title>
+</head>
+<body onload="loadIds()">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">POS System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/dashboard.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="customer.html">Customer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="items.html">Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="place-order.html">Place Order</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <h3 class="mb-3">Place New Order</h3>
+
+        <!-- Customer Section -->
+        <div class="card p-4 mb-4 shadow-sm">
+            <h5 class="card-title text-muted mb-3">Customer Details</h5>
+            <div class="row g-3">
+                <div class="col-12 col-md-3">
+                    <label for="customer-id" class="form-label">Customer ID</label>
+                    <select id="customer-id" class="form-select"></select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" disabled class="form-control" id="name" placeholder="Customer Name">
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" disabled class="form-control" id="address" placeholder="Address">
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" disabled class="form-control" id="salary" placeholder="Salary">
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Section -->
+        <div class="card p-4 mb-4 shadow-sm">
+            <h5 class="card-title text-muted mb-3">Item Details</h5>
+            <div class="row g-3">
+                <div class="col-12 col-md-3">
+                    <label for="item-id" class="form-label">Item ID</label>
+                    <select id="item-id" class="form-select"></select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" disabled class="form-control" id="description" placeholder="Description">
+                </div>
+                <div class="col-12 col-md-2">
+                    <label for="unit-price" class="form-label">Unit Price</label>
+                    <input type="text" disabled class="form-control" id="unit-price" placeholder="0.00">
+                </div>
+                <div class="col-12 col-md-2">
+                    <label for="qty-on-hand" class="form-label">Qty On Hand</label>
+                    <input type="text" disabled class="form-control" id="qty-on-hand" placeholder="0">
+                </div>
+                <div class="col-12 col-md-2">
+                    <label for="qty" class="form-label">Qty</label>
+                    <input type="number" id="qty" placeholder="Enter Qty" class="form-control">
+                </div>
+                <div class="col-12 text-end mt-3">
+                    <button class="btn btn-primary px-4" id="add-to-cart" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Table -->
+        <div class="card p-3 shadow-sm mb-4">
+            <h5 class="card-title text-muted mb-3">Cart Items</h5>
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Description</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-body">
+                    <!-- Dynamic Cart Rows -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="card p-4 shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                    <div class="d-flex align-items-center">
+                        <label for="net-total" class="form-label fw-bold me-3 fs-5 mb-0">Net Total:</label>
+                        <input type="text" disabled id="net-total" class="form-control fw-bold text-danger fs-5 w-50" value="0.00">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 text-end">
+                    <button class="btn btn-success btn-lg w-100" onclick="PlaceOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script src="scripts/firebaseConfig.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/place-order.js"></script>
+</body>
+</html>
